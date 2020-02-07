@@ -1,0 +1,109 @@
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+GENERAL 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+h1 {
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.container {
+    max-width: 900px;
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+NAV 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+nav {
+    border-bottom: 1px solid #ededed;
+}
+
+.navbar > .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .container ul {
+    display: flex;
+}
+
+nav .container ul li {
+    margin: 0 10px;
+    font-size: 12px;
+}
+
+.logo {
+    background: url('./img/logo.svg');
+    background-size: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    height: 30px;
+    width: 30px;
+}
+
+@media (max-width: 600px) {
+    nav .container {
+        padding: 0 30px;
+    }
+
+    nav .container ul {
+        display: none;
+    }
+}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+CARDS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+/* Your styles go here */
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    margin: 10px 0;
+}
+
+.card-container {
+    width: 250px;
+    height: 250px;
+
+    min-height: 250px;
+    min-width: 250px;
+
+    border-radius: 10px;
+
+    padding: 15px;
+    margin: 10px;
+
+    box-shadow: rgb(209, 209, 209) 5px 5px 10px;
+}
+
+.card-container h3 {
+    font-size: small;
+    color: white;
+    text-transform: uppercase;
+}
+
+.card-container p {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: white;
+    height: 80%;    
+}
+
+.card-container a {
+    padding: 5px 20px;
+    text-decoration: none;
+    background: white;
+    color: #4A4A4A;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border: 1px solid ghostwhite;
+    border-radius: 3px;
+}
+
+.card-container a:hover {
+    background: #4A4A4A;
+    color: white;
+}
