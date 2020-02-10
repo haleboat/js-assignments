@@ -10,8 +10,9 @@ Quick jump to repo:
 - [Assignment 2 Repo](https://github.com/haleboat/js-assignments/tree/master/jscourse/js-assignment2)
 
 I created a homepage to link to all of my assignments:
-[js-assignments](https://haleboat-js-assignments.netlify.com/)
+
+[www.js-assignments.com](https://haleboat-js-assignments.netlify.com/)
 
 
-- [Assignment 1](https://haleboat-js-assignments.netlify.com/jscourse/js-assignment1/code/index.html)
-- [Assignment 2](https://haleboat-js-assignments.netlify.com/jscourse/js-assignment2/code/index.html)
+- [Assignment 1 URL](https://haleboat-js-assignments.netlify.com/jscourse/js-assignment1/code/index.html)
+- [Assignment 2 URL](https://haleboat-js-assignments.netlify.com/jscourse/js-assignment2/code/index.html)
