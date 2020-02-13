@@ -6,8 +6,9 @@ const url = "https://pokeapi.co/api/v2/pokedex/1"
 
 function initialLoad() {
 
-  document.querySelector("#load").remove()
+  removeLoadButton()
   showLoading()
+  createHeader()
 
   fetch(url)
     .then(x => x.json())
@@ -32,6 +33,7 @@ function initialLoad() {
 }
 
 function entryLoad(pokemonUrl) {
+  // debugger
   fetch(pokemonUrl)
     .then(x => x.json())
     .then(data => {
@@ -53,6 +55,20 @@ function entryLoad(pokemonUrl) {
 
 //   return pokedexList
 // }
+
+function removeLoadButton() {
+  document.querySelector("#load").remove()
+}
+
+function createHeader() {
+  const header = document.createElement('h1')
+  header.textContent = 'pokedex'
+  header.className = 'pokedex-title'
+
+  document.querySelector('.container').appendChild(header)
+}
+
+
 
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
@@ -81,7 +97,12 @@ function createPokemonListHTML(data, ul) {
   viewButton.value = pokedexURL
   viewButton.textContent = `view`
   viewButton.id = 'view'
-  // viewButton.addEventListener('click', entryLoad(button.value))
+
+  function loadEntry() {
+    entryLoad(viewButton.value)
+  }
+
+  viewButton.addEventListener('click', loadEntry)
 
   // attach entry number <li> to <ul>
   row.appendChild(entryNum)
@@ -106,7 +127,7 @@ function showLoading() {
   const loading = document.createElement("p")
   loading.id = "js-loading"
   loading.textContent = "Loading..."
-  document.body.appendChild(loading)
+  document.querySelector('.container').appendChild(loading)
 }
 
 function removeLoading() {
@@ -147,25 +168,25 @@ function showError() {
 
 // trying old for loop to only return li's
 // for (let i = 0; i <= originalOneFifty; i++) {
-  //   console.log(data[i])
-  //   const pokedexNum = data[i - 1].entry_number
-  //   const pokemonName = data[i - 1].pokemon_species.name
-  //   const pokemonURL = data[i - 1].pokemon_species.url
+//   console.log(data[i])
+//   const pokedexNum = data[i - 1].entry_number
+//   const pokemonName = data[i - 1].pokemon_species.name
+//   const pokemonURL = data[i - 1].pokemon_species.url
 
-  //   let entryNum = ''
+//   let entryNum = ''
 
-    // if (pokedexNum < 10) {
-    //   entryNum = `#00${pokedexNum}`
-    // } else if (pokedexNum >= 10 && pokedexNum < 100) {
-    //   entryNum = `#0${pokedexNum}`
-    // } else if (pokedexNum >= 100) {
-    //   entryNum = `#${pokedexNum}`
-    // }
+// if (pokedexNum < 10) {
+//   entryNum = `#00${pokedexNum}`
+// } else if (pokedexNum >= 10 && pokedexNum < 100) {
+//   entryNum = `#0${pokedexNum}`
+// } else if (pokedexNum >= 100) {
+//   entryNum = `#${pokedexNum}`
+// }
 
-  //   const li = ` <li>${entryNum}</li>
-  //                 <li>${pokemonName}</li>
-  //                 <li><button value=${pokemonURL} id='view'>View</button></li>
-  //               `
+//   const li = ` <li>${entryNum}</li>
+//                 <li>${pokemonName}</li>
+//                 <li><button value=${pokemonURL} id='view'>View</button></li>
+//               `
 
-  //   return li
-  // }
+//   return li
+// }
