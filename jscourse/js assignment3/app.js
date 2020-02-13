@@ -56,39 +56,43 @@ function entryLoad(pokemonUrl) {
 
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
-  const pokemonName = data.pokemon_species.name
-  const pokemonURL = data.pokemon_species.url
+  const pokedexName = data.pokemon_species.name
+  const pokedexURL = data.pokemon_species.url
 
-  const entryNumRow = document.createElement("li")
+
+  const row = document.createElement('li')
+
+
+  const entryNum = document.createElement("p")
   if (pokedexNum < 10) {
-    entryNumRow.textContent = `#00${pokedexNum}`
+    entryNum.textContent = `#00${pokedexNum}`
   } else if (pokedexNum >= 10 && pokedexNum < 100) {
-    entryNumRow.textContent = `#0${pokedexNum}`
+    entryNum.textContent = `#0${pokedexNum}`
   } else if (pokedexNum >= 100) {
-    entryNumRow.textContent = `#${pokedexNum}`
+    entryNum.textContent = `#${pokedexNum}`
   }
 
-  const pokemonNameRow = document.createElement("li")
-  pokemonNameRow.textContent = pokemonName
+  const pokemonName = document.createElement("p")
+  pokemonName.textContent = pokedexName
 
-  const buttonRow = document.createElement('li')
+  // const buttonRow = document.createElement('p')
   const viewButton = document.createElement('button')
 
-  viewButton.value = pokemonURL
+  viewButton.value = pokedexURL
   viewButton.textContent = `view`
   viewButton.id = 'view'
   // viewButton.addEventListener('click', entryLoad(button.value))
-  buttonRow.appendChild(viewButton)
-
 
   // attach entry number <li> to <ul>
-  ul.appendChild(entryNumRow)
+  row.appendChild(entryNum)
 
   // attach pokemon name <li> to <ul>
-  ul.appendChild(pokemonNameRow)
+  row.appendChild(pokemonName)
 
   // attach button to view pokemon <li> to <ul>
-  ul.appendChild(buttonRow)
+  row.appendChild(viewButton)
+
+  ul.appendChild(row)
 
   // attach ul to document
   document.querySelector('.container').appendChild(ul)
@@ -148,17 +152,17 @@ function showError() {
   //   const pokemonName = data[i - 1].pokemon_species.name
   //   const pokemonURL = data[i - 1].pokemon_species.url
 
-  //   let entryNumRow = ''
+  //   let entryNum = ''
 
     // if (pokedexNum < 10) {
-    //   entryNumRow = `#00${pokedexNum}`
+    //   entryNum = `#00${pokedexNum}`
     // } else if (pokedexNum >= 10 && pokedexNum < 100) {
-    //   entryNumRow = `#0${pokedexNum}`
+    //   entryNum = `#0${pokedexNum}`
     // } else if (pokedexNum >= 100) {
-    //   entryNumRow = `#${pokedexNum}`
+    //   entryNum = `#${pokedexNum}`
     // }
 
-  //   const li = ` <li>${entryNumRow}</li>
+  //   const li = ` <li>${entryNum}</li>
   //                 <li>${pokemonName}</li>
   //                 <li><button value=${pokemonURL} id='view'>View</button></li>
   //               `
