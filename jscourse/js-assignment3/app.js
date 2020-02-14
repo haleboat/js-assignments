@@ -178,7 +178,6 @@ function showLoading() {
   loading.id = "js-loading"
   loading.className = "loading"
   loading.textContent = "Loading..."
-  debugger
   document.querySelector('.container').appendChild(loading)
 }
 

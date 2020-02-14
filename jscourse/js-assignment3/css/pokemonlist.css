@@ -9,7 +9,7 @@
 
   position: relative;
 
-  background: var(--light);
+  /* background: var(--light); */
 
   display: flex;
   justify-content: center;
