@@ -17,4 +17,4 @@ I created a homepage to link to all of my assignments:
 
 - [Assignment 1 URL](https://haleboat-js-assignments.netlify.com/jscourse/js-assignment1/code/index.html)
 - [Assignment 2 URL](https://haleboat-js-assignments.netlify.com/jscourse/js-assignment2/code/index.html)
-- [Assignment 3 URL](https://haleboat-js-assignments.netlify.com/jscourse/js-assignment2/index.html)
+- [Assignment 3 URL](https://haleboat-js-assignments.netlify.com/jscourse/js%20assignment3/index.html)
