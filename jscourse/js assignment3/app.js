@@ -3,10 +3,7 @@ document.getElementById('load').addEventListener('click', callPokedexAPI)
 const originalOneFifty = 151
 const url = "https://pokeapi.co/api/v2/pokedex/1"
 
-
-
 function callPokedexAPI() {
-
   removeLoadButton()
   showLoading()
   createHeader()
@@ -34,7 +31,6 @@ function callPokedexAPI() {
 }
 
 function callPokemonEntryAPI(pokemonUrl) {
-  // debugger
   showLoading()
   fetch(pokemonUrl)
     .then(x => x.json())
@@ -65,17 +61,6 @@ function callSpeciesAPI(speciesURL) {
       }
       const descID = document.querySelector('#poke-desc')
       descID.textContent = description
-
-      // data.flavor_text_entries.forEach(index => {
-      //   if (index.language.name === 'en') {
-      //     description = index.flavor_text
-      //     break
-      //   }
-      // });
-
-
-      // description = data.flavor_text_entries[1].flavor_text
-
     })
     .catch(err => {
       showError()
@@ -96,6 +81,11 @@ function hideCard() {
   card.classList = 'pokemon-card hide'
 }
 
+function showCard() {
+  const card = document.querySelector('.pokemon-card')
+  card.classList = 'pokemon-card show'
+}
+
 function createHeader() {
   const header = document.createElement('h1')
   header.textContent = 'pokedex'
@@ -107,7 +97,6 @@ function createHeader() {
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
   const pokedexName = data.pokemon_species.name
-  // const pokedexURL = data.pokemon_species.url
 
 
   const row = document.createElement('li')
@@ -132,6 +121,7 @@ function createPokemonListHTML(data, ul) {
   viewButton.id = 'view'
 
   function loadEntry() {
+    showCard()
     callPokemonEntryAPI(viewButton.value)
   }
 
@@ -159,11 +149,14 @@ function createPokemonCard(pokeData) {
   const speciesURL = pokeData.species.url
   callSpeciesAPI(speciesURL)
 
-  // callSpeciesAPI(speciesURL)
-  // console.log(callSpeciesAPI(pokeData.species.url)
-
   const entryID = document.querySelector('#poke-num')
-  entryID.textContent = id
+  if (id < 10) {
+    entryID.textContent = `00${id}`
+  } else if (id >= 10 && id < 100) {
+    entryID.textContent = `0${id}`
+  } else if (id >= 100) {
+    entryID.textContent = `${id}`
+  }
 
   const nameID = document.querySelector('#poke-name')
   nameID.textContent = name
@@ -181,9 +174,11 @@ function createPokemonCard(pokeData) {
 }
 
 function showLoading() {
-  const loading = document.createElement("p")
+  const loading = document.createElement("div")
   loading.id = "js-loading"
+  loading.className = "loading"
   loading.textContent = "Loading..."
+  debugger
   document.querySelector('.container').appendChild(loading)
 }
 

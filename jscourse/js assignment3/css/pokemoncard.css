@@ -4,6 +4,7 @@
   height: 420px;
   width: 420px;
   padding: 20px;
+  margin: 20px;
 
   display: flex;
   flex-direction: column;
@@ -12,12 +13,11 @@
   font-size: .75rem; 
   background: var(--light);;
   
-  border: 1px dotted var(--dark);
+  border: 2px dotted var(--dark);
   border-radius: 10px;
 }
 
-.wrapper {
-  
+.wrapper {  
   width: 400px;
   padding: 10px;
   margin: 5px;
@@ -42,7 +42,7 @@
   width: 45%;
   border: 1px solid var(--dark);
   border-radius: 10px;
-  
+
   background-size:cover;
   background-position:center;  
   background-color: var(--light);
@@ -99,6 +99,7 @@
       color: set by js
       background: set by js
   */
+
   border-radius: 5px;
 
   font-size: .7rem;
