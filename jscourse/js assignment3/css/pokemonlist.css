@@ -1,0 +1,44 @@
+@import "./variables.css";
+
+.container {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+
+  background: var(--light);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container .pokedex-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 30px;
+}
+
+.container .pokemon-list {
+  width: 100%;
+
+  padding-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.container .pokemon-list li {
+  width: 90%;
+  padding: 15px 30px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+
+  color: var(--dark);
+  text-transform: capitalize;
+  border-bottom: 1px dotted var(--dark);
+}

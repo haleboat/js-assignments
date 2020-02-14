@@ -1,10 +1,11 @@
-document.getElementById('load').addEventListener('click', initialLoad)
-// button.addEventListener('click', entryLoad(button.value))
+document.getElementById('load').addEventListener('click', callPokedexAPI)
 
 const originalOneFifty = 151
 const url = "https://pokeapi.co/api/v2/pokedex/1"
 
-function initialLoad() {
+
+
+function callPokedexAPI() {
 
   removeLoadButton()
   showLoading()
@@ -32,32 +33,67 @@ function initialLoad() {
     })
 }
 
-function entryLoad(pokemonUrl) {
+function callPokemonEntryAPI(pokemonUrl) {
   // debugger
+  showLoading()
   fetch(pokemonUrl)
     .then(x => x.json())
     .then(data => {
+      console.log(data)
       const pokemon = data
-      // removeLoading()
 
-      // createPokemonData(pokemon)
-      console.log(pokemon)
+      removeLoading()
+      createPokemonCard(pokemon)
 
     })
     .catch(err => {
-      // showError()
+      showError()
     })
 }
 
-// function createListHTML() {
-//   const pokedexList = document.createElement("ul")
-//   pokedexList.className = "pokemon-list"
+function callSpeciesAPI(speciesURL) {
+  fetch(speciesURL)
+    .then(x => x.json())
+    .then(data => {
+      let description = `Error loading description.`
 
-//   return pokedexList
-// }
+      for (let i = 0; i < data.flavor_text_entries.length; i++) {
+        if (data.flavor_text_entries[i].language.name === 'en') {
+          description = data.flavor_text_entries[i].flavor_text
+          break
+        }
+      }
+      const descID = document.querySelector('#poke-desc')
+      descID.textContent = description
+
+      // data.flavor_text_entries.forEach(index => {
+      //   if (index.language.name === 'en') {
+      //     description = index.flavor_text
+      //     break
+      //   }
+      // });
+
+
+      // description = data.flavor_text_entries[1].flavor_text
+
+    })
+    .catch(err => {
+      showError()
+    })
+}
 
 function removeLoadButton() {
   document.querySelector("#load").remove()
+}
+
+function hideList() {
+  const list = document.querySelector('.pokemon-list')
+  list.classList = 'pokemon-list hide'
+}
+
+function hideCard() {
+  const card = document.querySelector('.pokemon-card')
+  card.classList = 'pokemon-card hide'
 }
 
 function createHeader() {
@@ -68,12 +104,10 @@ function createHeader() {
   document.querySelector('.container').appendChild(header)
 }
 
-
-
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
   const pokedexName = data.pokemon_species.name
-  const pokedexURL = data.pokemon_species.url
+  // const pokedexURL = data.pokemon_species.url
 
 
   const row = document.createElement('li')
@@ -91,15 +125,14 @@ function createPokemonListHTML(data, ul) {
   const pokemonName = document.createElement("p")
   pokemonName.textContent = pokedexName
 
-  // const buttonRow = document.createElement('p')
   const viewButton = document.createElement('button')
 
-  viewButton.value = pokedexURL
+  viewButton.value = `https://pokeapi.co/api/v2/pokemon/${pokedexName}/`
   viewButton.textContent = `view`
   viewButton.id = 'view'
 
   function loadEntry() {
-    entryLoad(viewButton.value)
+    callPokemonEntryAPI(viewButton.value)
   }
 
   viewButton.addEventListener('click', loadEntry)
@@ -119,9 +152,33 @@ function createPokemonListHTML(data, ul) {
   document.querySelector('.container').appendChild(ul)
 }
 
-// function createPokemonData(pokeData) {
-//   console.log(pokeData)
-// }
+function createPokemonCard(pokeData) {
+  const id = pokeData.id
+  const name = pokeData.name
+  const sprite = pokeData.sprites.front_default
+  const speciesURL = pokeData.species.url
+  callSpeciesAPI(speciesURL)
+
+  // callSpeciesAPI(speciesURL)
+  // console.log(callSpeciesAPI(pokeData.species.url)
+
+  const entryID = document.querySelector('#poke-num')
+  entryID.textContent = id
+
+  const nameID = document.querySelector('#poke-name')
+  nameID.textContent = name
+
+  const typeID = document.querySelector('#poke-type')
+  typeID.textContent = pokeData.types[0].type.name
+  const typeIDtwo = document.querySelector('#poke-type2')
+  typeIDtwo.textContent = ''
+  if (pokeData.types.length > 1) {
+    typeIDtwo.textContent = pokeData.types[1].type.name
+  }
+
+  const image = document.querySelector('.image')
+  image.style = `background-image: url(${sprite})`
+}
 
 function showLoading() {
   const loading = document.createElement("p")
@@ -136,57 +193,11 @@ function removeLoading() {
 }
 
 function showError() {
+  hideList()
+  hideCard()
   const loading = document.createElement("p")
   loading.id = "js-error"
+  loading.className = 'error'
   loading.textContent = "There was an error loading the data."
-  document.body.appendChild(loading)
+  document.querySelector('.container').appendChild(loading)
 }
-
-// function initialLoad() {
-// const url = "https://pokeapi.co/api/v2/pokedex/1"
-
-// showLoading()
-
-// fetch(url)
-//   .then(x => x.json())
-//   .then(data => {
-//     const list = data.pokemon_entries
-//     // removeLoading()
-
-//     list.forEach(index => {
-//       if (index.entry_number <= originalOneFifty) {
-//         createPokemonListHTML(index)
-//       }
-//     });
-
-//   })
-//   .catch(err => {
-//     // showError()
-//   })
-// }
-
-
-// trying old for loop to only return li's
-// for (let i = 0; i <= originalOneFifty; i++) {
-//   console.log(data[i])
-//   const pokedexNum = data[i - 1].entry_number
-//   const pokemonName = data[i - 1].pokemon_species.name
-//   const pokemonURL = data[i - 1].pokemon_species.url
-
-//   let entryNum = ''
-
-// if (pokedexNum < 10) {
-//   entryNum = `#00${pokedexNum}`
-// } else if (pokedexNum >= 10 && pokedexNum < 100) {
-//   entryNum = `#0${pokedexNum}`
-// } else if (pokedexNum >= 100) {
-//   entryNum = `#${pokedexNum}`
-// }
-
-//   const li = ` <li>${entryNum}</li>
-//                 <li>${pokemonName}</li>
-//                 <li><button value=${pokemonURL} id='view'>View</button></li>
-//               `
-
-//   return li
-// }

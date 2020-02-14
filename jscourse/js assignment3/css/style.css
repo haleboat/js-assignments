@@ -1,85 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
-
-
-body,
-html {
-  padding: 0;
-  margin: 0;
-  font-family: 'Press Start 2P', cursive;
-}
-
-ul {
-  padding-left: 0;
-  display: flex;
-}
-
-li {
-  list-style: none;
-}
+@import "./variables.css";
 
 body {
   height: 100%;
-}
-
-.container {
-  height: 100%;
-  width: 100%;
-  padding: 20px;
-
-
-  background: #C4CFA1;
 
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.container .pokedex-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 30px;
-}
-
-.container .pokemon-list {
-  width: 100%;
-
-  padding-top: 20px;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.container .pokemon-list li {
-  width: 90%;
-  padding: 15px 30px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-
-  color: #1F1F1F;
-  text-transform: capitalize;
-  border-bottom: 1px #1F1F1F dotted;
-}
-
-button {
-  padding: 5px 15px;
-  border: 3px solid #1F1F1F;
-
-  background-color: #C4CFA1;
-  border-radius: 30px;
-
+  
   font-family: 'Press Start 2P', cursive;
-}
-
-button:hover {
-  background: #1F1F1F;
-  color: #C4CFA1;
-}
-
-button:active {
-  color: #1F1F1F;
-  background: #8B956D;
+  background: var(--light);;
 }
