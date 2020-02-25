@@ -1,6 +1,5 @@
 document.getElementById('load').addEventListener('click', callPokedexAPI)
 
-const originalOneFifty = 151
 const url = "https://pokeapi.co/api/v2/pokedex/1"
 
 function callPokedexAPI() {
@@ -19,9 +18,8 @@ function callPokedexAPI() {
       removeLoading()
 
       list.forEach(index => {
-        if (index.entry_number <= originalOneFifty) {
-          createPokemonListHTML(index, ul)
-        }
+        createPokemonListHTML(index, ul)
+
       });
 
     })
