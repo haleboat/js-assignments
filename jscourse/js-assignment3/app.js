@@ -23,7 +23,6 @@ function callPokedexAPI() {
           createPokemonListHTML(index, ul)
         }
       });
-
     })
     .catch(err => {
       showError()

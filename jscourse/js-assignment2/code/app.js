@@ -1,6 +1,6 @@
 const hamburgerBtn = document.querySelector('.hamburger-btn')
 const closeBtn = document.querySelector('.close-btn')
-const menu = document.querySelector('.hamburger-menu-close')
+const menu = document.querySelector('.hamburger-menu')
 
 hamburgerBtn.addEventListener('click', () => {
   menu.className = 'hamburger-menu open'
