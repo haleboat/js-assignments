@@ -43,6 +43,6 @@
 
 @media only screen and (max-width: 780px) {
   .container {
-    min-width: 450px;  
+    min-width: 400px;  
   }
 }
