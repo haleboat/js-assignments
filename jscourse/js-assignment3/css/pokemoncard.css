@@ -1,6 +1,8 @@
 @import "./variables.css";
 
 .pokemon-card {
+  min-height: 60vh;
+  max-width: 600px;
   padding: 20px;
   margin: 20px;
 
@@ -17,8 +19,7 @@
   border-radius: 10px;
 }
 
-.wrapper {  
-  width: 25vw;
+.wrapper {
   padding: 10px;
   margin: 5px;
 
@@ -41,8 +42,9 @@
 }
 
 .wrapper .image {
+  height: 100%;
   width: 300px;
-  height: 300px;
+  
   border: 1px solid var(--dark);
   border-radius: 10px;
 
@@ -119,50 +121,22 @@
   margin: 5px;
 }
 
+@media only screen and (max-width: 780px) {
 
-@media only screen and (max-width: 1080px) {
   .pokemon-card {
-    height: 90%;
-    width: 100%;
-
-    padding: 10px;
-    margin: 5px;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    min-height: 60vh;
+    max-width: 400px; 
   }
 
-  .wrapper {  
-    width: 90%;
-    padding: 10px;
-    margin: 5px;
-    
-    border: 1px dotted var(--dark);
-    border-radius: 10px;
-    
-    display: flex;
+  .wrapper {
     flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .wrapper .image {
-    width: 100%;    
-    min-height: 200px;
-    border: 1px solid var(--dark);
-    border-radius: 10px;
-  
-    background-size:cover;
-    background-position:center;  
-    background-color: var(--light);  
-    background-blend-mode: luminosity;
   }
 
   .top {
-    height: 55vh;
+    height: 500px;
   }
   
   .bottom {
-    height: 20vh;
+    height: 100px;
   }
 }

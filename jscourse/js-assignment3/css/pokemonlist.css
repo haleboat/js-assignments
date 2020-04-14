@@ -40,9 +40,3 @@
   text-transform: capitalize;
   border-bottom: 1px dotted var(--dark);
 }
-
-@media only screen and (max-width: 500px) {
-  .container {
-    width: 100vw;
-  }
-}

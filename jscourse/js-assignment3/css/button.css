@@ -79,9 +79,3 @@ button:focus {
   from {top: -50%}
   to {top: 50%}
 }
-
-@media only screen and (max-width: 600px) {
-  .toggle {
-    padding-top: 2vh;
-  }
-}
