@@ -122,7 +122,6 @@
 }
 
 @media only screen and (max-width: 780px) {
-
   .pokemon-card {
     min-height: 60vh;
     max-width: 400px; 
