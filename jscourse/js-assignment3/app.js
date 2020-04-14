@@ -4,7 +4,7 @@ const url = "https://pokeapi.co/api/v2/pokedex/1"
 
 function callPokedexAPI() {
   removeLoadButton()
-  showLoading()
+  initialLoading()
   createHeader()
 
   fetch(url)
@@ -13,7 +13,7 @@ function callPokedexAPI() {
       const list = data.pokemon_entries
       const ul = pokedexList = document.createElement("ul")
       pokedexList.className = "pokemon-list"
-      removeLoading()
+      removeApiLoading()
 
       list.forEach(index => {
         createPokemonListHTML(index, ul)
@@ -158,12 +158,25 @@ function resetCard() {
   document.querySelector('.image').style = `background-image: none`
 }
 
+function initialLoading() {
+  const loading = document.createElement("div")
+  loading.id = "api-loading"
+  loading.className = "loading"
+  loading.textContent = "Loading..."
+  document.querySelector('body').appendChild(loading)
+}
+
 function showLoading() {
   const loading = document.createElement("div")
   loading.id = "js-loading"
   loading.className = "loading"
   loading.textContent = "Loading..."
   document.querySelector('.pokemon-card').appendChild(loading)
+}
+
+function removeApiLoading() {
+  const api_loading = document.querySelector("#api-loading")
+  api_loading.remove()
 }
 
 function removeLoading() {
