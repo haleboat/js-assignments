@@ -45,7 +45,7 @@ button:focus {
 .toggle {
   z-index: 1;
   position: fixed;
-  animation-name: test;
+  animation-name: card-animation;
   animation-duration: .5s;
 
   padding-top: 70px;
@@ -72,7 +72,7 @@ button:focus {
   background: rgba(0,0,0, 0.75);
 }
 
-@keyframes test {
+@keyframes card-animation {
   from {top: -50%}
   to {top: 0}
 }
