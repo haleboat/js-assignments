@@ -3,7 +3,7 @@
 }
 
 body, html {
-  height: 100%;
+  height: 100vh;
   padding: 0;
   margin: 0;
 }
@@ -18,9 +18,7 @@ nav {
   display: flex;
   align-content: center;
   justify-content: center;
-  width: 100%;
-
-  /* border: 1px solid blue; */
+  width: 100vw;
 }
 
 .container {
@@ -32,13 +30,13 @@ nav {
 }
 
 .container h1 {
-  width: 100%;
+  width: 100vw;
   text-align: center;
 }
 
 nav ul {
   padding: 10px;
-  width: 100%;
+  width: 100vw;
 }
 
 nav ul li {
@@ -49,7 +47,7 @@ nav ul li {
 }
 
 nav ul li a{
-  width: 100%;
+  width: 100vw;
 
   color: black;
 

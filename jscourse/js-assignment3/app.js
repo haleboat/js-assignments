@@ -5,11 +5,12 @@ const url = "https://pokeapi.co/api/v2/pokedex/1"
 function callPokedexAPI() {
   removeLoadButton()
   initialLoading()
-  createHeader()
+
 
   fetch(url)
     .then(x => x.json())
     .then(data => {
+      createHeader()
       const list = data.pokemon_entries
       const ul = pokedexList = document.createElement("ul")
       pokedexList.className = "pokemon-list"
@@ -136,18 +137,16 @@ function hideList() {
 }
 
 function hideCard() {
-  resetCard();
+  removeApiLoading()
+  resetCard()
   const card = document.querySelector('.toggle')
-  const shader = document.querySelector('body')
   card.classList = 'toggle hide'
-  shader.classList = ''
 }
 
 function showCard() {
+  initialLoading()
   const card = document.querySelector('.toggle')
-  const shader = document.querySelector('body')
   card.classList = 'toggle show'
-  shader.classList = 'shader'
 }
 
 function resetCard() {
