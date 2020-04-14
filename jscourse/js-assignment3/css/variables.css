@@ -3,3 +3,21 @@
   --medium: #8B956D;
   --dark: #1F1F1F;
 }
+
+::-webkit-scrollbar {
+  background: #8B956D;
+  border-radius: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #8B956D;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1F1F1F; 
+  border-radius: 10px;
+  width: 5px;
+}
+

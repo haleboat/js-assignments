@@ -9,35 +9,39 @@
 </head>
 
 <body>
+
   <div class="container">
     <button id='load'>load</button>
   </div>
-  <div class="pokemon-card hide">
-    <button class='back' onclick=hideCard()>close</button>
-    <div class="wrapper top">
-      <div class="image"></div>
-      <div class="info">
-        <div>
-          <p class='info-title'>entry#</p>
-          <p class='info-data' id="poke-num"></p>
-        </div>
-        <div>
-          <p class='info-title'>name:</p>
-          <p class='info-data' id='poke-name'></p>
-        </div>
-        <div>
-          <p class='info-title'>type:</p>
-          <span class='info-data type-container' id='poke-types'>
-            <p class='poketype' id='poke-type'></p>
-            <p class='poketype' id='poke-type2'></p>
-          </span>
+
+  <div class="toggle hide">
+    <div class="pokemon-card">
+      <button class='back' onclick=hideCard()>close</button>
+      <div class="wrapper top">
+        <div class="image"></div>
+        <div class="info">
+          <div>
+            <p class='info-title'>entry#</p>
+            <p class='info-data' id="poke-num"></p>
+          </div>
+          <div>
+            <p class='info-title'>name:</p>
+            <p class='info-data' id='poke-name'></p>
+          </div>
+          <div>
+            <p class='info-title'>type:</p>
+            <span class='info-data type-container' id='poke-types'>
+              <p class='poketype' id='poke-type'></p>
+              <p class='poketype' id='poke-type2'></p>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="wrapper bot">
-      <div class="description">
-        <p class='info-title'>description:</p>
-        <p class='description-data' id='poke-desc'></p>
+      <div class="wrapper bot">
+        <div class="description">
+          <p class='info-title'>description:</p>
+          <p class='description-data' id='poke-desc'></p>
+        </div>
       </div>
     </div>
   </div>

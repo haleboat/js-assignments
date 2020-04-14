@@ -5,7 +5,7 @@ button {
   margin: 5px;
   border: 3px solid var(--dark);
 
-  background-color: var(--light);;
+  background-color: var(--medium);
   color: var(--dark);
   border-radius: 30px;
 
@@ -19,7 +19,7 @@ button:hover {
 
 button:active {
   color: var(--dark);
-  background: var(--medium);
+  background: var(--light);
 }
 
 button:focus {
@@ -32,8 +32,8 @@ button:focus {
 }
 
 .loading {
-  width: 100%;
-  height: 100%;
+  width: 30%;
+  height: 50%;
   background-color: rgba(0,0,0, 0.75);
   position: absolute;
   color: white;
@@ -42,11 +42,37 @@ button:focus {
   justify-content: center;
 }
 
+.toggle {
+  z-index: 1;
+  position: fixed;
+  animation-name: test;
+  animation-duration: .5s;
+
+  padding-top: 70px;
+  left: 33%;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .hide {
   display: none;
-  visibility: hidden
+  visibility: hidden;
 }
 
 .show {
+  display: block;
   visibility: visible;
+}
+
+.shader {
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0, 0.75);
+}
+
+@keyframes test {
+  from {top: -50%}
+  to {top: 0}
 }

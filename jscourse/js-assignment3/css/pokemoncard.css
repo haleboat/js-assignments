@@ -1,8 +1,8 @@
 @import "./variables.css";
 
 .pokemon-card {
-  height: 420px;
-  width: 420px;
+  height: 50%;
+  width: 30%;
   padding: 20px;
   margin: 20px;
 
@@ -11,6 +11,9 @@
   justify-content: space-around;
   
   font-size: .75rem; 
+
+  background-color: var(--light);
+  background-image: url('http://api.thumbr.it/whitenoise-361x370.png?background=C4CFA1ff&noise=626262&density=7&opacity=15');
   
   border: 2px dotted var(--dark);
   border-radius: 10px;
