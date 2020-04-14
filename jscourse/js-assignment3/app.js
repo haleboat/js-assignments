@@ -11,15 +11,12 @@ function callPokedexAPI() {
     .then(x => x.json())
     .then(data => {
       const list = data.pokemon_entries
-
       const ul = pokedexList = document.createElement("ul")
       pokedexList.className = "pokemon-list"
-
       removeLoading()
 
       list.forEach(index => {
         createPokemonListHTML(index, ul)
-
       });
     })
     .catch(err => {
@@ -34,10 +31,8 @@ function callPokemonEntryAPI(pokemonUrl) {
     .then(data => {
       console.log(data)
       const pokemon = data
-
       removeLoading()
       createPokemonCard(pokemon)
-
     })
     .catch(err => {
       showError()
@@ -49,7 +44,6 @@ function callSpeciesAPI(speciesURL) {
     .then(x => x.json())
     .then(data => {
       let description = `Error loading description.`
-
       for (let i = 0; i < data.flavor_text_entries.length; i++) {
         if (data.flavor_text_entries[i].language.name === 'en') {
           description = data.flavor_text_entries[i].flavor_text
@@ -64,38 +58,6 @@ function callSpeciesAPI(speciesURL) {
     })
 }
 
-function removeLoadButton() {
-  document.querySelector("#load").remove()
-}
-
-function hideList() {
-  const list = document.querySelector('.pokemon-list')
-  list.classList = 'pokemon-list hide'
-}
-
-function hideCard() {
-  resetCard();
-  const card = document.querySelector('.toggle')
-  card.classList = 'toggle hide'
-  const shader = document.querySelector('body')
-  shader.classList = ''
-}
-
-function showCard() {
-  const card = document.querySelector('.toggle')
-  card.classList = 'toggle show'
-  const shader = document.querySelector('body')
-  shader.classList = 'shader'
-}
-
-function createHeader() {
-  const header = document.createElement('h1')
-  header.textContent = 'pokedex'
-  header.className = 'pokedex-title'
-
-  document.querySelector('.container').appendChild(header)
-}
-
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
   const pokedexName = data.pokemon_species.name
@@ -103,7 +65,6 @@ function createPokemonListHTML(data, ul) {
   const entryNum = document.createElement("p")
   const pokemonName = document.createElement('p')
   const viewButton = document.createElement('button')
-
 
   row.className = pokedexNum
   entryNum.textContent = zeroPadding(pokedexNum)
@@ -156,6 +117,37 @@ function zeroPadding(id) {
   } else if (id >= 100) {
     return `#${id}`
   }
+}
+
+function createHeader() {
+  const header = document.createElement('h1')
+  header.textContent = 'pokedex'
+  header.className = 'pokedex-title'
+  document.querySelector('.container').appendChild(header)
+}
+
+function removeLoadButton() {
+  document.querySelector("#load").remove()
+}
+
+function hideList() {
+  const list = document.querySelector('.pokemon-list')
+  list.classList = 'pokemon-list hide'
+}
+
+function hideCard() {
+  resetCard();
+  const card = document.querySelector('.toggle')
+  const shader = document.querySelector('body')
+  card.classList = 'toggle hide'
+  shader.classList = ''
+}
+
+function showCard() {
+  const card = document.querySelector('.toggle')
+  const shader = document.querySelector('body')
+  card.classList = 'toggle show'
+  shader.classList = 'shader'
 }
 
 function resetCard() {
