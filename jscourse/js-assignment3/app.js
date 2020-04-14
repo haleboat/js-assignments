@@ -10,20 +10,23 @@ function callPokedexAPI() {
   fetch(url)
     .then(x => x.json())
     .then(data => {
-      createHeader()
+      createPokedexHeader()
       const list = data.pokemon_entries
-      const ul = pokedexList = document.createElement("ul")
-      pokedexList.className = "pokemon-list"
+      const pokedexList = document.createElement("ul")
+      createListHeader(pokedexList)
+
       removeApiLoading()
 
       list.forEach(index => {
-        createPokemonListHTML(index, ul)
+        createPokemonListHTML(index, pokedexList)
       });
     })
     .catch(err => {
       showError()
     })
 }
+
+
 
 function callPokemonEntryAPI(pokemonUrl) {
   showLoading()
@@ -59,9 +62,34 @@ function callSpeciesAPI(speciesURL) {
     })
 }
 
+function createPokedexHeader() {
+  const header = document.createElement('h1')
+  header.textContent = 'pokedex'
+  header.className = 'pokedex-title'
+  document.querySelector('.container').appendChild(header)
+}
+
+function createListHeader(pokedexList) {
+  const listHeader = document.createElement('li')
+  const listHeaderNum = document.createElement('p')
+  const listHeaderName = document.createElement('p')
+  const listHeaderAction = document.createElement('p')
+
+  listHeaderNum.textContent = 'entry#'
+  listHeaderName.textContent = 'pokemon name'
+  listHeaderAction.textContent = 'action'
+
+  listHeader.appendChild(listHeaderNum)
+  listHeader.appendChild(listHeaderName)
+  listHeader.appendChild(listHeaderAction)
+  pokedexList.appendChild(listHeader)
+  pokedexList.className = "pokemon-list"
+}
+
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
   const pokedexName = data.pokemon_species.name
+
   const row = document.createElement('li')
   const entryNum = document.createElement("p")
   const pokemonName = document.createElement('p')
@@ -92,13 +120,13 @@ function createPokemonCard(pokeData) {
   const name = pokeData.name
   const sprite = pokeData.sprites.front_default
   const speciesURL = pokeData.species.url
+
   const entryID = document.querySelector('#poke-num')
   const nameID = document.querySelector('#poke-name')
   const typeID = document.querySelector('#poke-type')
   const typeIDtwo = document.querySelector('#poke-type2')
   const image = document.querySelector('.image')
   callSpeciesAPI(speciesURL)
-
 
   entryID.textContent = zeroPadding(id)
   nameID.textContent = name
@@ -108,23 +136,6 @@ function createPokemonCard(pokeData) {
     typeIDtwo.textContent = pokeData.types[1].type.name
   }
   image.style = `background-image: url(${sprite})`
-}
-
-function zeroPadding(id) {
-  if (id < 10) {
-    return `#00${id}`
-  } else if (id >= 10 && id < 100) {
-    return `#0${id}`
-  } else if (id >= 100) {
-    return `#${id}`
-  }
-}
-
-function createHeader() {
-  const header = document.createElement('h1')
-  header.textContent = 'pokedex'
-  header.className = 'pokedex-title'
-  document.querySelector('.container').appendChild(header)
 }
 
 function removeLoadButton() {
@@ -191,4 +202,14 @@ function showError() {
   loading.className = 'error'
   loading.textContent = "There was an error loading the data."
   document.querySelector('.container').appendChild(loading)
+}
+
+function zeroPadding(id) {
+  if (id < 10) {
+    return `#00${id}`
+  } else if (id >= 10 && id < 100) {
+    return `#0${id}`
+  } else if (id >= 100) {
+    return `#${id}`
+  }
 }
