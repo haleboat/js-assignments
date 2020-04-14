@@ -1,13 +1,11 @@
 @import "./variables.css";
 
 .container {
-  height: 100%;
-  width: 100%;
   padding: 20px;
-  min-width: 622px;;
-  max-width: 700px;
+  min-width: 500px;
+  max-width: 800px;
 
-  position: relative;
+  /* position: relative; */
 
   display: flex;
   justify-content: center;
@@ -24,6 +22,7 @@
   height: 800px;
   overflow-y: auto;
   border: 2px dotted var(--dark);
+  border-radius: 5px;
   
 
   display: flex;
@@ -31,7 +30,6 @@
 }
 
 .container .pokemon-list li {
-  width: 90%;
   padding: 15px 30px;
 
   display: flex;
@@ -41,4 +39,10 @@
   color: var(--dark);
   text-transform: capitalize;
   border-bottom: 1px dotted var(--dark);
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    width: 100vw;
+  }
 }

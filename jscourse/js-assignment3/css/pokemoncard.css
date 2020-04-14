@@ -1,8 +1,6 @@
 @import "./variables.css";
 
 .pokemon-card {
-  height: 50%;
-  width: 30%;
   padding: 20px;
   margin: 20px;
 
@@ -20,7 +18,7 @@
 }
 
 .wrapper {  
-  width: 400px;
+  width: 25vw;
   padding: 10px;
   margin: 5px;
 
@@ -43,7 +41,8 @@
 }
 
 .wrapper .image {
-  width: 45%;
+  width: 300px;
+  height: 300px;
   border: 1px solid var(--dark);
   border-radius: 10px;
 
@@ -58,8 +57,8 @@
 }
 
 .wrapper .info {
-  width: 45%;
   padding: 10px;
+  margin: 10px;
   
   display: flex;
   flex-direction: column;
@@ -80,6 +79,7 @@
 
 .info-data {
   height: 20px;
+  padding: 10px;
   margin: 5px;
   text-align: right;
   text-transform: capitalize;
@@ -98,12 +98,7 @@
   display: inline;
   padding: 5px;
   margin: 5px;
-
-  /*  border-color: set by js
-      color: set by js
-      background: set by js
-  */
-
+  
   border-radius: 5px;
 
   font-size: .7rem;
@@ -122,4 +117,52 @@
 
 .description-data {
   margin: 5px;
+}
+
+
+@media only screen and (max-width: 1080px) {
+  .pokemon-card {
+    height: 90%;
+    width: 100%;
+
+    padding: 10px;
+    margin: 5px;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .wrapper {  
+    width: 90%;
+    padding: 10px;
+    margin: 5px;
+    
+    border: 1px dotted var(--dark);
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .wrapper .image {
+    width: 100%;    
+    min-height: 200px;
+    border: 1px solid var(--dark);
+    border-radius: 10px;
+  
+    background-size:cover;
+    background-position:center;  
+    background-color: var(--light);  
+    background-blend-mode: luminosity;
+  }
+
+  .top {
+    height: 55vh;
+  }
+  
+  .bottom {
+    height: 20vh;
+  }
 }
