@@ -53,6 +53,8 @@ button:focus {
   left: 50%;
   transform: translate(-50%, -50%);
 
+  overflow-y: auto;
+
   padding-top: 70px;
   height: 100%;
 }
@@ -77,4 +79,10 @@ button:focus {
 @keyframes card-animation {
   from {top: -50%}
   to {top: 50%}
+}
+
+@media only screen and (max-width: 780px) {
+  button {
+    font-size: .6rem; 
+  }
 }
