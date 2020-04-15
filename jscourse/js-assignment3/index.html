@@ -8,10 +8,9 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 
-<body>
+<body onload="callPokedexAPI()">
 
   <div class="container">
-    <button id='load'>load</button>
   </div>
 
   <div class="toggle hide">
@@ -39,6 +38,7 @@
       </div>
       <div class="wrapper mid">
         <div class="evolutions">evolutions</div>
+        <div class="evo-container"></div>
       </div>
       <div class="wrapper bot">
         <div class="description">

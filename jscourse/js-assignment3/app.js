@@ -1,9 +1,6 @@
-document.getElementById('load').addEventListener('click', callPokedexAPI)
-
 const url = "https://pokeapi.co/api/v2/pokedex/1"
 
 function callPokedexAPI() {
-  removeLoadButton()
   initialLoading()
 
   fetch(url)
@@ -26,14 +23,14 @@ function callPokedexAPI() {
     })
 }
 
-function callPokemonEntryAPI(pokemonUrl) {
+function callPokemonEntryAPI(pokemonURL) {
   showLoading()
-  fetch(pokemonUrl)
+  fetch(pokemonURL)
     .then(x => x.json())
     .then(data => {
-      const pokemon = data
+      const firstDataSet = data
       removeLoading()
-      createPokemonCard(pokemon)
+      createPokemonCard(firstDataSet)
     })
     .catch(err => {
       showError()
@@ -41,29 +38,145 @@ function callPokemonEntryAPI(pokemonUrl) {
 }
 
 function callSpeciesAPI(speciesURL) {
-  fetch(speciesURL)
+  const secondDataSet = fetch(speciesURL)
     .then(x => x.json())
     .then(data => {
-      const morePokeData = data
-      getDescription(morePokeData)
-      getEvolutions(morePokeData)
+      return data
     })
-    .catch(err => {
-      showError()
-    })
+  return secondDataSet
 }
 
 function callEvolutionAPI(evoURL) {
-  fetch(evoURL)
+  const evoDataSet = fetch(evoURL)
     .then(x => x.json())
     .then(data => {
-      const evoPokeData = data
-      console.log(evoPokeData)
+      const evo_data = data.chain
+      return evo_data
     })
-    .catch(err => {
-      showError()
-    })
+  return evoDataSet
 }
+
+// - /pokemon/${name}/          - first data set has types/sprites
+// - /pokemon-species/${number} - second data set has description/evolution_chain and evolves_from_species
+// - /evolution-chain/${number} - evo data set has evolves_to
+
+function createPokemonCard(firstDataSet) {
+  const speciesURL = firstDataSet.species.url
+
+  callSpeciesAPI(speciesURL)
+    .then(secondDataSet => {
+      getDescription(secondDataSet)
+      const evoURL = secondDataSet.evolution_chain.url
+      callEvolutionAPI(evoURL)
+        .then(evoDataSet => {
+          getEvolutions(evoDataSet, firstDataSet)
+        })
+    })
+
+  const id = firstDataSet.id
+  const name = firstDataSet.name
+  const sprite = firstDataSet.sprites.front_default
+
+
+  const entryID = document.querySelector('#poke-num')
+  const nameID = document.querySelector('#poke-name')
+  const typeID = document.querySelector('#poke-type')
+  const typeIDtwo = document.querySelector('#poke-type2')
+  const image = document.querySelector('.image')
+
+  image.style = `background-image: url(${sprite})`
+  entryID.textContent = zeroPadding(id)
+  nameID.textContent = name
+  typeID.textContent = firstDataSet.types[0].type.name
+  typeID.className = `${firstDataSet.types[0].type.name}`
+  typeIDtwo.style.display = 'none'
+
+  if (firstDataSet.types.length > 1) {
+    typeIDtwo.textContent = firstDataSet.types[1].type.name
+    typeIDtwo.className = `${firstDataSet.types[1].type.name}`
+    typeIDtwo.style.display = ''
+  }
+
+}
+
+function processChain(evolves_to, retList) {
+  evolves_to.forEach(ch => {
+    retList.push({
+      name: ch.species.name,
+      spritesURL: `https://pokeapi.co/api/v2/pokemon/${ch.species.name}/`
+    })
+    retList = processChain(ch.evolves_to, retList)
+    return retList;
+  });
+  return retList;
+}
+
+function getEvolutions(evo_data) {
+  let evolutions_list = [];
+  evolutions_list.push({
+    name: evo_data.species.name,
+    spritesURL: `https://pokeapi.co/api/v2/pokemon/${evo_data.species.name}/`
+  })
+  evolutions_list = processChain(evo_data.evolves_to, evolutions_list);
+
+
+  if (evolutions_list.length > 0) {
+    evolutions_list.forEach(index => {
+      callSpeciesAPI(index.spritesURL)
+        .then(spritesTEST => {
+          const evoSprite = document.createElement('div')
+          evoSprite.className = `image`
+          evoSprite.title = `${index.name}`
+          console.log(spritesTEST.sprites.front_default)
+          evoSprite.style = `background-image: url(${spritesTEST.sprites.front_default})`
+          document.querySelector(`.evo-container`).appendChild(evoSprite)
+        })
+    })
+  }
+}
+
+// function getEvolutions(evo_data, firstDataSet, secondDataSet) {
+//   console.log(evo_data.evolves_to)
+//   console.log(secondDataSet)
+//   console.log(firstDataSet.sprites.front_default)
+
+
+//   evo_data.evolves_to.forEach(value => {
+//     console.log(value.species.name)
+//     console.log(value)
+//   })
+// }
+
+// function callImageAPI(imageURL) {
+//   fetch(imageURL)
+//     .then(x => x.json())
+//     .then(data => {
+//       const image = data
+//       console.log(image)
+//       setEvoImage(image)
+//     })
+//     .catch(err => {
+//       showError()
+//     })
+// }
+
+// function setEvoImage(image) {
+//   const evoContainer = document.querySelector('.evo-container')
+//   const firstEvo = document.createElement('div')
+//   firstEvo.className = 'evolution-image'
+//   firstEvo.style = `background-image: url(${image.sprites.front_default})`
+//   evoContainer.appendChild(firstEvo)
+// }
+
+
+
+
+
+
+
+
+
+
 
 function createPokedexHeader() {
   const container = document.querySelector('.container')
@@ -78,6 +191,7 @@ function createSearchbar() {
   const wrapper = document.createElement('div')
   const search = document.createElement('h3')
   const textField = document.createElement('input')
+
   wrapper.className = 'search'
   search.textContent = 'search'
   textField.className = 'search-term'
@@ -108,8 +222,6 @@ function createSearchbar() {
 
   textField.addEventListener('keyup', searchJS)
 }
-
-
 
 function createListHeader(pokedexList) {
   const listHeader = document.createElement('li')
@@ -143,10 +255,9 @@ function createPokemonListHTML(data, ul) {
   row.id = pokedexNum
   entryNum.textContent = zeroPadding(pokedexNum)
   pokemonName.textContent = pokedexName
-  pokemonName.id = pokedexName
   viewButton.value = `https://pokeapi.co/api/v2/pokemon/${pokedexName}/`
   viewButton.textContent = `view`
-  viewButton.id = 'view'
+  viewButton.id = `${pokedexName}`
 
   function loadEntry() {
     showCard()
@@ -161,66 +272,37 @@ function createPokemonListHTML(data, ul) {
   container.appendChild(ul)
 }
 
-function createPokemonCard(pokeData) {
-  const id = pokeData.id
-  const name = pokeData.name
-  const sprite = pokeData.sprites.front_default
-  const speciesURL = pokeData.species.url
 
-  const entryID = document.querySelector('#poke-num')
-  const nameID = document.querySelector('#poke-name')
-  const typeID = document.querySelector('#poke-type')
-  const typeIDtwo = document.querySelector('#poke-type2')
-  const image = document.querySelector('.image')
-  const evolution_1 = document.querySelector('.evolution-1')
-  const evolution_2 = document.querySelector('.evolution-2')
 
-  callSpeciesAPI(speciesURL)
-
-  entryID.textContent = zeroPadding(id)
-  nameID.textContent = name
-  typeID.textContent = pokeData.types[0].type.name
-  typeID.className = `${pokeData.types[0].type.name}`
-  typeIDtwo.style.display = 'none'
-  if (pokeData.types.length > 1) {
-    typeIDtwo.textContent = pokeData.types[1].type.name
-    typeIDtwo.className = `${pokeData.types[1].type.name}`
-    typeIDtwo.style.display = ''
+function getDescription(secondDataSet) {
+  let description = `Error loading description.`
+  for (let i = 0; i < secondDataSet.flavor_text_entries.length; i++) {
+    if (secondDataSet.flavor_text_entries[i].language.name === 'en') {
+      description = secondDataSet.flavor_text_entries[i].flavor_text
+      break
+    }
   }
-
-  image.style = `background-image: url(${sprite})`
+  const descID = document.querySelector('#poke-desc')
+  descID.textContent = description
 }
 
-function removeLoadButton() {
-  document.querySelector("#load").remove()
+// Error Handling
+function showError() {
+  hideList()
+  hideCard()
+  const loading = document.createElement("p")
+  loading.id = "js-error"
+  loading.className = 'error'
+  loading.textContent = "There was an error loading the data."
+  document.querySelector('.container').appendChild(loading)
 }
 
 function hideList() {
-  const list = document.querySelector('.pokemon-list')
-  list.classList = 'pokemon-list hide'
+  const list = document.querySelector('#pokemon-list')
+  list.className = 'hide'
 }
 
-function hideCard() {
-  removeApiLoading()
-  resetCard()
-  const card = document.querySelector('.toggle')
-  card.classList = 'toggle hide'
-}
-
-function showCard() {
-  initialLoading()
-  const card = document.querySelector('.toggle')
-  card.classList = 'toggle show'
-}
-
-function resetCard() {
-  document.querySelector('#poke-num').textContent = ''
-  document.querySelector('#poke-name').textContent = ''
-  document.querySelector('#poke-type').textContent = ''
-  document.querySelector('#poke-type2').textContent = ''
-  document.querySelector('.image').style = `background-image: none`
-}
-
+//Loading Functions
 function initialLoading() {
   const loading = document.createElement("div")
   loading.id = "api-loading"
@@ -247,16 +329,31 @@ function removeLoading() {
   loading.remove()
 }
 
-function showError() {
-  hideList()
-  hideCard()
-  const loading = document.createElement("p")
-  loading.id = "js-error"
-  loading.className = 'error'
-  loading.textContent = "There was an error loading the data."
-  document.querySelector('.container').appendChild(loading)
+//Resets
+function hideCard() {
+  removeApiLoading()
+  resetCard()
+  const card = document.querySelector('.toggle')
+  card.classList = 'toggle hide'
 }
 
+function showCard() {
+  initialLoading()
+  const card = document.querySelector('.toggle')
+  card.classList = 'toggle show'
+}
+
+function resetCard() {
+  document.querySelector('#poke-num').textContent = ''
+  document.querySelector('#poke-name').textContent = ''
+  document.querySelector('#poke-type').textContent = ''
+  document.querySelector('#poke-type2').textContent = ''
+  document.querySelector('.image').style = `background-image: none`
+  document.querySelector('.evo-container').textContent = ''
+  document.querySelector('.description-data').textContent = ''
+}
+
+//Padding tool
 function zeroPadding(id) {
   if (id < 10) {
     return `#00${id}`
@@ -266,23 +363,3 @@ function zeroPadding(id) {
     return `#${id}`
   }
 }
-
-function getDescription(descript_data) {
-  let description = `Error loading description.`
-  for (let i = 0; i < descript_data.flavor_text_entries.length; i++) {
-    if (descript_data.flavor_text_entries[i].language.name === 'en') {
-      description = descript_data.flavor_text_entries[i].flavor_text
-      break
-    }
-  }
-  const descID = document.querySelector('#poke-desc')
-  descID.textContent = description
-}
-
-// function getEvolutions(evo_data) {
-//   const evoContainer = document.querySelector('.evolutions')
-//   const test = document.createElement('div')
-//   const evoURL = evo_data.evolution_chain.url
-//   console.log(evoURL)
-//   callEvolutionAPI(evoURL)
-// }
