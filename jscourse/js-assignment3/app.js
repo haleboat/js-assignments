@@ -135,49 +135,6 @@ function getEvolutions(evo_data) {
   }
 }
 
-// function getEvolutions(evo_data, firstDataSet, secondDataSet) {
-//   console.log(evo_data.evolves_to)
-//   console.log(secondDataSet)
-//   console.log(firstDataSet.sprites.front_default)
-
-
-//   evo_data.evolves_to.forEach(value => {
-//     console.log(value.species.name)
-//     console.log(value)
-//   })
-// }
-
-// function callImageAPI(imageURL) {
-//   fetch(imageURL)
-//     .then(x => x.json())
-//     .then(data => {
-//       const image = data
-//       console.log(image)
-//       setEvoImage(image)
-//     })
-//     .catch(err => {
-//       showError()
-//     })
-// }
-
-// function setEvoImage(image) {
-//   const evoContainer = document.querySelector('.evo-container')
-//   const firstEvo = document.createElement('div')
-//   firstEvo.className = 'evolution-image'
-//   firstEvo.style = `background-image: url(${image.sprites.front_default})`
-//   evoContainer.appendChild(firstEvo)
-// }
-
-
-
-
-
-
-
-
-
-
-
 function createPokedexHeader() {
   const container = document.querySelector('.container')
   const header = document.createElement('h1')
@@ -271,8 +228,6 @@ function createPokemonListHTML(data, ul) {
   ul.appendChild(row)
   container.appendChild(ul)
 }
-
-
 
 function getDescription(secondDataSet) {
   let description = `Error loading description.`
