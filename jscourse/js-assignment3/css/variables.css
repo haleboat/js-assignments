@@ -4,6 +4,10 @@
   --dark: #1F1F1F;
 }
 
+::placeholder {
+  color: var(--dark);
+}
+
 ::-webkit-scrollbar {
   background: #8B956D;
   border-radius: 10px;

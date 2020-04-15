@@ -6,11 +6,11 @@ function callPokedexAPI() {
   removeLoadButton()
   initialLoading()
 
-
   fetch(url)
     .then(x => x.json())
     .then(data => {
       createPokedexHeader()
+      createSearchbar()
       const list = data.pokemon_entries
       const pokedexList = document.createElement("ul")
       createListHeader(pokedexList)
@@ -26,14 +26,11 @@ function callPokedexAPI() {
     })
 }
 
-
-
 function callPokemonEntryAPI(pokemonUrl) {
   showLoading()
   fetch(pokemonUrl)
     .then(x => x.json())
     .then(data => {
-      console.log(data)
       const pokemon = data
       removeLoading()
       createPokemonCard(pokemon)
@@ -63,17 +60,58 @@ function callSpeciesAPI(speciesURL) {
 }
 
 function createPokedexHeader() {
+  const container = document.querySelector('.container')
   const header = document.createElement('h1')
   header.textContent = 'pokedex'
   header.className = 'pokedex-title'
-  document.querySelector('.container').appendChild(header)
+  container.appendChild(header)
 }
+
+function createSearchbar() {
+  const container = document.querySelector('.container')
+  const wrapper = document.createElement('div')
+  const search = document.createElement('h3')
+  const textField = document.createElement('input')
+  wrapper.className = 'search'
+  search.textContent = 'search'
+  textField.className = 'search-term'
+  textField.id = 'search-term'
+  textField.placeholder = `type pokemons name here...`
+  textField.type = 'text'
+
+  wrapper.appendChild(search)
+  wrapper.appendChild(textField)
+  container.appendChild(wrapper)
+
+  function searchJS() {
+    let filter, ul, li, a, i;
+    let input = document.getElementById('search-term')
+    filter = input.value.toUpperCase()
+    ul = document.getElementById('pokemon-list')
+    li = ul.getElementsByTagName('li')
+
+    for (i = 1; i < li.length; i++) {
+      a = li[i].getElementsByTagName('a')[0];
+      if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = ''
+      }
+      else {
+        li[i].style.display = 'none'
+      }
+    }
+  }
+  textField.addEventListener('keyup', searchJS)
+}
+
+
 
 function createListHeader(pokedexList) {
   const listHeader = document.createElement('li')
   const listHeaderNum = document.createElement('p')
   const listHeaderName = document.createElement('p')
   const listHeaderAction = document.createElement('p')
+
+  listHeader.className = 'list-header'
 
   listHeaderNum.textContent = 'entry#'
   listHeaderName.textContent = 'pokemon name'
@@ -83,21 +121,23 @@ function createListHeader(pokedexList) {
   listHeader.appendChild(listHeaderName)
   listHeader.appendChild(listHeaderAction)
   pokedexList.appendChild(listHeader)
-  pokedexList.className = "pokemon-list"
+  pokedexList.id = "pokemon-list"
 }
 
 function createPokemonListHTML(data, ul) {
   const pokedexNum = data.entry_number
   const pokedexName = data.pokemon_species.name
 
+  const container = document.querySelector('.container')
   const row = document.createElement('li')
-  const entryNum = document.createElement("p")
-  const pokemonName = document.createElement('p')
+  const entryNum = document.createElement('p')
+  const pokemonName = document.createElement('a')
   const viewButton = document.createElement('button')
 
-  row.className = pokedexNum
+  row.id = pokedexNum
   entryNum.textContent = zeroPadding(pokedexNum)
   pokemonName.textContent = pokedexName
+  pokemonName.id = pokedexName
   viewButton.value = `https://pokeapi.co/api/v2/pokemon/${pokedexName}/`
   viewButton.textContent = `view`
   viewButton.id = 'view'
@@ -112,7 +152,7 @@ function createPokemonListHTML(data, ul) {
   row.appendChild(pokemonName)
   row.appendChild(viewButton)
   ul.appendChild(row)
-  document.querySelector('.container').appendChild(ul)
+  container.appendChild(ul)
 }
 
 function createPokemonCard(pokeData) {
@@ -126,6 +166,7 @@ function createPokemonCard(pokeData) {
   const typeID = document.querySelector('#poke-type')
   const typeIDtwo = document.querySelector('#poke-type2')
   const image = document.querySelector('.image')
+
   callSpeciesAPI(speciesURL)
 
   entryID.textContent = zeroPadding(id)

@@ -12,3 +12,7 @@ ul {
 li {
   list-style: none;
 }
+
+a {
+  padding: 15px 0;
+}
