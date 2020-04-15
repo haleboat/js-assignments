@@ -6,22 +6,22 @@
 
 ::placeholder {
   color: var(--dark);
+  font-size: .6rem; 
 }
 
 ::-webkit-scrollbar {
-  background: #8B956D;
+  background: var(--medium);
   border-radius: 10px;
   width: 15px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #8B956D;
+  background: var(--medium);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1F1F1F; 
+  background: var(--dark);
   border-radius: 10px;
   width: 5px;
 }
-
