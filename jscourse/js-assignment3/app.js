@@ -119,7 +119,7 @@ function createListHeader(pokedexList) {
 
   listHeader.className = 'list-header'
 
-  listHeaderNum.textContent = 'entry number:'
+  listHeaderNum.textContent = 'entry number'
   listHeaderName.textContent = 'pokemon name'
   listHeaderAction.textContent = 'action'
 
