@@ -15,7 +15,7 @@
   background-color: var(--light);
   background-image: url('http://api.thumbr.it/whitenoise-361x370.png?background=C4CFA1ff&noise=626262&density=7&opacity=15');
   
-  border: 2px dotted var(--dark);
+  border: 2px dotted var(--darker);
   border-radius: 10px;
 }
 
@@ -26,7 +26,7 @@
   background: var(--medium);
   background-image: url('http://api.thumbr.it/whitenoise-361x370.png?background=8B956Dff&noise=626262&density=18&opacity=16');
   
-  border: 1px dotted var(--dark);
+  border: 1px dotted var(--darker);
   border-radius: 10px;
   
   display: flex;
@@ -45,7 +45,7 @@
   height: 100%;
   width: 300px;
   
-  border: 1px solid var(--dark);
+  border: 1px solid var(--darker);
   border-radius: 10px;
 
   background-size:cover;
@@ -71,7 +71,7 @@
   height: 30%;
   width: 100%;
   margin: 0;
-  border-bottom: 1px solid var(--dark);
+  border-bottom: 1px solid var(--darker);
 }
 
 .info-title {
@@ -96,11 +96,11 @@
   justify-content: flex-end;
 }
 
-.poketype {
+#poke-type, #poke-type2 {
   display: inline;
-  padding: 5px;
+  padding: 5px 10px;
   margin: 5px;
-  
+
   border-radius: 5px;
 
   font-size: .7rem;
@@ -114,7 +114,7 @@
 
 .description .info-title {
   padding: 10px 0;
-  border-bottom: 1px solid var(--dark);
+  border-bottom: 1px solid var(--darker);
 }
 
 .description-data {

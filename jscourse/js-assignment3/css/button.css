@@ -1,7 +1,7 @@
 @import "./variables.css";
 
 .search {
-  width: 30vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
 }
@@ -17,7 +17,7 @@ input[type=text] {
   width: 100vw;
   margin: 10px;
   background-color: var(--medium);
-  color: var(--dark);
+  color: var(--darker);
 }
 
 
@@ -26,22 +26,22 @@ button {
   width: 100px;
   padding: 10px 15px;
   margin: 5px;
-  border: 3px solid var(--dark);
+  border: 3px solid var(--darker);
 
   background-color: var(--medium);
-  color: var(--dark);
+  color: var(--darker);
   border-radius: 30px;
 
   font-family: 'Press Start 2P', cursive;
 }
 
 button:hover {
-  background: var(--dark);
+  background: var(--darker);
   color: var(--light);;
 }
 
 button:active {
-  color: var(--dark);
+  color: var(--darker);
   background: var(--light);
 }
 
@@ -55,6 +55,18 @@ button:focus {
 }
 
 .loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0, 0.75);
+  position: absolute;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-pokemon {
+  margin-top: -50%;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0, 0.75);

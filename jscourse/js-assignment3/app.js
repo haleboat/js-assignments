@@ -84,14 +84,13 @@ function createSearchbar() {
   container.appendChild(wrapper)
 
   function searchJS() {
-    let filter, ul, li, a, i;
     let input = document.getElementById('search-term')
-    filter = input.value.toUpperCase()
-    ul = document.getElementById('pokemon-list')
-    li = ul.getElementsByTagName('li')
+    let filter = input.value.toUpperCase()
+    let ul = document.getElementById('pokemon-list')
+    let li = ul.getElementsByTagName('li')
 
-    for (i = 1; i < li.length; i++) {
-      a = li[i].getElementsByTagName('a')[0];
+    for (let i = 1; i < li.length; i++) {
+      let a = li[i].getElementsByTagName('a')[0];
       if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
         li[i].style.display = ''
       }
@@ -100,6 +99,7 @@ function createSearchbar() {
       }
     }
   }
+
   textField.addEventListener('keyup', searchJS)
 }
 
@@ -172,10 +172,14 @@ function createPokemonCard(pokeData) {
   entryID.textContent = zeroPadding(id)
   nameID.textContent = name
   typeID.textContent = pokeData.types[0].type.name
-  typeIDtwo.textContent = ''
+  typeID.className = `${pokeData.types[0].type.name}`
+  typeIDtwo.style.display = 'none'
   if (pokeData.types.length > 1) {
     typeIDtwo.textContent = pokeData.types[1].type.name
+    typeIDtwo.className = `${pokeData.types[1].type.name}`
+    typeIDtwo.style.display = ''
   }
+
   image.style = `background-image: url(${sprite})`
 }
 
@@ -220,9 +224,9 @@ function initialLoading() {
 function showLoading() {
   const loading = document.createElement("div")
   loading.id = "js-loading"
-  loading.className = "loading"
-  loading.textContent = "Loading..."
-  document.querySelector('.pokemon-card').appendChild(loading)
+  loading.className = "loading-pokemon"
+  loading.textContent = "Loading Pokemon..."
+  document.querySelector('.wrapper').appendChild(loading)
 }
 
 function removeApiLoading() {
