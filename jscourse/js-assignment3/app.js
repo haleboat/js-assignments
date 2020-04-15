@@ -44,15 +44,21 @@ function callSpeciesAPI(speciesURL) {
   fetch(speciesURL)
     .then(x => x.json())
     .then(data => {
-      let description = `Error loading description.`
-      for (let i = 0; i < data.flavor_text_entries.length; i++) {
-        if (data.flavor_text_entries[i].language.name === 'en') {
-          description = data.flavor_text_entries[i].flavor_text
-          break
-        }
-      }
-      const descID = document.querySelector('#poke-desc')
-      descID.textContent = description
+      const morePokeData = data
+      getDescription(morePokeData)
+      getEvolutions(morePokeData)
+    })
+    .catch(err => {
+      showError()
+    })
+}
+
+function callEvolutionAPI(evoURL) {
+  fetch(evoURL)
+    .then(x => x.json())
+    .then(data => {
+      const evoPokeData = data
+      console.log(evoPokeData)
     })
     .catch(err => {
       showError()
@@ -166,6 +172,8 @@ function createPokemonCard(pokeData) {
   const typeID = document.querySelector('#poke-type')
   const typeIDtwo = document.querySelector('#poke-type2')
   const image = document.querySelector('.image')
+  const evolution_1 = document.querySelector('.evolution-1')
+  const evolution_2 = document.querySelector('.evolution-2')
 
   callSpeciesAPI(speciesURL)
 
@@ -258,3 +266,23 @@ function zeroPadding(id) {
     return `#${id}`
   }
 }
+
+function getDescription(descript_data) {
+  let description = `Error loading description.`
+  for (let i = 0; i < descript_data.flavor_text_entries.length; i++) {
+    if (descript_data.flavor_text_entries[i].language.name === 'en') {
+      description = descript_data.flavor_text_entries[i].flavor_text
+      break
+    }
+  }
+  const descID = document.querySelector('#poke-desc')
+  descID.textContent = description
+}
+
+// function getEvolutions(evo_data) {
+//   const evoContainer = document.querySelector('.evolutions')
+//   const test = document.createElement('div')
+//   const evoURL = evo_data.evolution_chain.url
+//   console.log(evoURL)
+//   callEvolutionAPI(evoURL)
+// }
