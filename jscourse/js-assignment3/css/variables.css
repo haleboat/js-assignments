@@ -22,7 +22,7 @@
   --dark: #735A4A;
   --fairy: #F7B5F7; 
  
-  scrollbar-color: rebeccapurple green;
+  scrollbar-color: var(--darker) var(--medium);
 }
 
 
