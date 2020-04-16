@@ -66,8 +66,6 @@ function callEvolutionAPI(evoURL) {
   return evoDataSet
 }
 
-
-
 function createPokedexHeader() {
   const container = document.querySelector('.container')
   const header = document.createElement('h1')
@@ -207,9 +205,13 @@ function getEvolutions(evo_data) {
       callSpeciesAPI(index.spritesURL)
         .then(spritesTEST => {
           const evoSprite = document.createElement('div')
+          const evoName = document.createElement('p')
+          evoName.className = 'evo-name'
+          evoName.textContent = index.name
           evoSprite.className = `evo-image`
           evoSprite.title = `${index.name}`
           evoSprite.style = `background-image: url(${spritesTEST.sprites.front_default})`
+          evoSprite.appendChild(evoName)
           document.querySelector(`.evo-container`).appendChild(evoSprite)
         })
     })
