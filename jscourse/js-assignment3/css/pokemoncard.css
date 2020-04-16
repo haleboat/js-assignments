@@ -37,6 +37,11 @@
   height: 300px;
 }
 
+.mid {
+  display: flex;
+  flex-direction: column;
+}
+
 .bottom {
   height: 100px;
 }
@@ -56,6 +61,19 @@
 
 .wrapper .image:hover {
   background-blend-mode: normal;
+}
+
+.evo-container {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  border: 1px solid red;
+}
+
+.evo-image {
+  width: 100px;
+  height: 100px;
 }
 
 .wrapper .info {
