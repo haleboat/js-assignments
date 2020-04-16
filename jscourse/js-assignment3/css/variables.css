@@ -20,8 +20,12 @@
   --dragon: #7B63E7;
   --steel: #ADADC6;
   --dark: #735A4A;
-  --fairy: #F7B5F7;
+  --fairy: #F7B5F7; 
+ 
+  scrollbar-color: rebeccapurple green;
 }
+
+
 
 ::placeholder {
   color: var(--darker);
